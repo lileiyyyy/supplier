@@ -14,6 +14,9 @@ use yii\bootstrap4\Modal;
 $this->title = 'Suppliers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<script>
+
+</script>
 <div class="supplier-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php echo Html::a('导出', '#', [
@@ -22,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'data-target' => '#page-modal',
         'class' => 'btn btn-success',
     ]); ?>
+    <?php echo Html::a('创建测试数据', "javascript:void(0);", ['class' => 'btn btn-success create-data']); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -114,6 +118,10 @@ $this->params['breadcrumbs'][] = $this->title;
         url = url + '&' + supplierSearchParams + '&header=' + headerStr + '&ids=' + idStr + '&isSelectAll=' + isSelectAll;
         console.log(url);
         window.location.href = url;
+    });
+
+    $(document).on("click", ".create-data", function () {
+        window.location.href = "<?=Url::to(['supplier/test'])?>";
     });
 
     function noticeMsg(selectAll) {
