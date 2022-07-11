@@ -51,29 +51,6 @@ class SupplierController extends Controller
         ]);
     }
 
-
-    public function actionTest()
-    {
-        $model = new Supplier();
-        $id = $model->find()->select('id')->orderBy('id desc')->limit(1)->asArray()->all();
-        $id = $id[0]['id'] ?? 1;
-        $max = $id + 40;
-        $max = $max > 100 ? 100 : $max;
-        $testData = [];
-        $t_status_list = ['ok', 'hold'];
-        for ($i = $id; $i < $max; $i++) {
-            $testData[] = [
-                'name' => 'test_name_' . $i,
-                'code' => 'C' . $i,
-                't_status' => $t_status_list[array_rand($t_status_list)]
-            ];
-        }
-        \Yii::$app->db->createCommand()->batchInsert($model::tableName(), ['name', 'code', 't_status'], $testData)->execute();
-        \Yii::$app->getSession()->setFlash('success', '操作成功');
-        return $this->redirect(['supplier/index']);
-    }
-
-
     public function actionExport()
     {
         $searchModel = new SupplierSearch();
