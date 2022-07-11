@@ -55,9 +55,13 @@ class SupplierController extends Controller
     public function actionTest()
     {
         $model = new Supplier();
+        $id = $model->find()->select('id')->orderBy('id desc')->limit(1)->asArray()->all();
+        $id = $id[0]['id'] ?? 1;
+        $max = $id + 40;
+        $max = $max > 100 ? 100 : $max;
         $testData = [];
         $t_status_list = ['ok', 'hold'];
-        for ($i = 1; $i < 40; $i++) {
+        for ($i = $id; $i < $max; $i++) {
             $testData[] = [
                 'name' => 'test_name_' . $i,
                 'code' => 'C' . $i,
